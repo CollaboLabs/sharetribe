@@ -24,4 +24,8 @@ class ListingShape < ActiveRecord::Base
 
   has_one :transaction_process
   has_many :translations, :class_name => "ListingShapeTranslation", :dependent => :destroy
+
+  def display_name(locale)
+    TranslationCache.new(self, :translations).translate(locale, :name)
+  end
 end
